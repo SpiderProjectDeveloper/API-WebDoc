@@ -1,0 +1,103 @@
+.APIContainer {
+	position:relative;
+	margin:24px 0px 0px 0px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.APIContainer::after {
+	content: ""; clear: both; display: table;
+}
+
+.APIList {
+	box-sizing: border-box;
+	width: 35%;
+	float: left;
+	margin: 0px;
+	height: calc(100vh-100px);
+	overflow-y: auto;
+	border: 1px solid #efefef;
+	border-radius: 4px;
+}
+
+.APIListItem {
+	box-sizing: border-box;
+	margin:1px 0px 1px 0px;
+	width:100%;
+	padding:8px;
+	cursor:pointer;	
+	color:#4f4f4f;
+	border-bottom:1px dotted #afafaf;
+}
+
+.APIListItemId {
+	cursor:pointer;	
+	color:#4f4faf;
+}
+
+
+.APIItem {
+	box-sizing: border-box;
+	width: 65%;
+	float: left;
+	margin: 0px;
+	padding:4px 4px 4px 24px;
+}
+
+.APIItemCommand {
+	color: #2f2f2f;
+	font-size: 110%;
+	font-weight: bold;
+	padding: 4px 4px 4px 0px;
+	border-bottom: 1px solid #afafaf;
+}
+
+.APIItemTitle {
+	color: #5f5f5f;
+	font-size: 110%;
+	font-weight: bold;
+	padding: 4px 4px 14px 0px;
+}
+
+
+.APIItemDescription {
+	color: #5f5f5f;
+	font-style: italic;
+	padding: 4px 4px 14px 0px;
+}
+
+.APIItemParametersTitle, .APIItemResultTitle {
+    font-weight: bold;
+    font-size:110%;
+    padding:12px 0px 0px 4px;
+}
+
+.APIItemParameters {
+	color: #5f5f5f;
+	font-style: normal;
+	padding: 4px;
+}
+
+.APIItemResult {
+	color: #5f5f5f;
+	font-style: normal;
+	padding: 4px;
+}
+
+.APIItemSampleParameters, .APIItemSampleResult {
+	color: #5f5f5f;
+    font-style: normal;
+    font-family:courier;
+    padding-right:24px;
+}
+
+
+@media only screen and (max-width: 800px) {
+		.APIList { width:40%; }
+		.APIItem { width:60%; }
+}
+
+@media only screen and (max-width: 600px) {
+		.APIList { width:100%; height:200px; overflow:auto; }
+		.APIItem { width:100%; }
+}
