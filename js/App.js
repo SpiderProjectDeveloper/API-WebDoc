@@ -17,19 +17,24 @@ class App extends React.Component {
 			mainPageText: { en:'', ru:'' },
 			apiPageTitle: { en:'', ru:'' },
 			examples: null,
-            currentExample: null,
-            contentId: 'mainPage',
+      currentExample: null,
+      contentId: 'mainPage',
 			contentTitle: null,
-            contentCode: null,
-            contentCodeModule: null,
+      contentCode: null,
+      contentCodeModule: null,
 			contentCodeLang: null,				
 			contentCodeDescr: null,				
 			contentCodeImg: null,				
 			contentCodeProjectFile: null,
-        };
+			contentCodeProjectShort: null,
+			contentCodeResourseLink: null,
+			contentCodeResourseText: null,
+			contentCodeSourceLink: null
+    };
 
 		this.changeLang = this.changeLang.bind(this);
 		this.getContent = this.getContent.bind(this);
+		this.setCodeContent = this.setCodeContent.bind(this);
 	}
 
 	changeLang( e ) {
@@ -37,40 +42,51 @@ class App extends React.Component {
 			if( settings.langs[i] === this.state.lang ) {
 				let lang = ( i < settings.langs.length-1 ) ? settings.langs[i+1] : settings.langs[0];  		
 				this.setState( { lang: lang } );
-                setCookie( 'lang', lang );
-                if( this.currentExample !== null ) {
-                    if( 'module' in this.state.currentExample ) { 
-                        this.getContent( this.state.currentExample );
-                    }
-                }
+				setCookie( 'lang', lang );
+				if( this.currentExample !== null ) {
+						if( 'module' in this.state.currentExample ) { 
+								this.getContent( this.state.currentExample );
+						}
+				}
 				break;
 			}
 		}
+	}
+
+	setCodeContent(content, contentCode=null) {
+		this.setState({
+			contentId: 'code', 
+			contentCode: contentCode, 
+			contentTitle: content.title[this.state.lang],
+			contentCodeDescr: content.descr[this.state.lang], 
+			contentCodeLang: ('lang' in content) ? content.lang : null,
+			contentCodeModule: ('module' in content) ? content.module : null, 
+			contentCodeImg: ('img' in content) ? content.img : null,
+			contentCodeProjectFile: ('sprj' in content) ? content.sprj : null,
+			contentCodeProjectShort: ('sprj' in content) ? (content.sprj.substr(content.sprj.lastIndexOf("/")+1)) : null,
+			contentCodeResourseLink: ('resourseLink' in content) ? content.resourseLink : null,
+			contentCodeResourseText: ('resourseText' in content) ? content.resourseText : null,
+			contentCodeSourceLink: ('sourceCodeLink' in content) ? content.sourceCodeLink : null,
+			currentExample: content 
+		});
 	}
 
 	getContent(content) {
 		if( 'module' in content ) {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
-	    		if (xhttp.readyState == 4 ) {
-		    		if( xhttp.status == 200 ) {
-						this.setState( { contentCode: xhttp.responseText, contentTitle:content.title[this.state.lang] } );				
+				if (xhttp.readyState == 4 ) {
+					if( xhttp.status == 200 ) {
+						this.setCodeContent(content, xhttp.responseText );
 					} else {
 						this.setState( { contentBody: 'Failed to load content...' } );				
-                    }
-					this.setState( { 
-                        contentId: 'code', 
-                        contentCodeDescr: content.descr[this.state.lang], 
-                        contentCodeLang: content.lang,
-                        contentCodeModule: content.module, 
-                        contentCodeImg: content.img,
-                        contentCodeProjectFile: content.sprj,
-                        currentExample: content 
-                    } );			
-	            } 	
-		    }.bind(this);
+					}
+				} 	
+		  }.bind(this);
 			xhttp.open( 'GET', content.module, true );
-        	xhttp.send();
+      xhttp.send();
+		} else if( 'sourceCodeLink' in content ) {
+			this.setCodeContent(content);
 		} else {
 			this.setState( { contentId: content.id, currentExample: null } );			
 		}
@@ -103,8 +119,8 @@ class App extends React.Component {
             } 
 	    }.bind(this);
 		xhttp.open( 'GET', 'files/contents.json', true );
-        xhttp.send();
-    }
+    xhttp.send();
+  }
 
 	render() {				
 		let contentTitle;
@@ -117,25 +133,53 @@ class App extends React.Component {
 			contentTitle = <div className={styles.contentTitle}>{this.state.apiPageTitle[ this.state.lang ]}</div>
 			contentBody = <API lang={this.state.lang} />;
 		} else if( this.state.contentId === 'code' ) { 	// Code Sample
-			contentTitle = <div className={styles.contentTitle}>{this.state.contentTitle}</div>;
-			let codeProjectFileNamePos = this.state.contentCodeProjectFile.lastIndexOf("/")+1;
-			let codeProjectFileName = this.state.contentCodeProjectFile.substr(codeProjectFileNamePos);
+			contentTitle = <div className={styles.contentTitle}>{this.state.contentTitle}</div>;			
 			contentBody = (
 				<div>
 					<div className={styles.contentCodeDescr}>{htmlReactParser(this.state.contentCodeDescr)}</div>
-					<div className={styles.contentCodeProjectFile}>
-						{texts.codeProjectFileDownload[this.state.lang]}
-						<a href={this.state.contentCodeProjectFile} download>{codeProjectFileName}</a>
-					</div>
-					<div className={styles.contentCode}>
-						<SyntaxHighlighter language={this.state.contentCodeLang}>
-							{this.state.contentCode}
-						</SyntaxHighlighter>
-					</div>
-					<div className={styles.contentCodeOutputTitle}>{texts.codeOutputTitle[this.state.lang]}</div>
-					<div className={styles.contentCodeImg}>
-						<img src={this.state.contentCodeImg}/>
-					</div>
+					{
+						(this.state.contentCodeProjectFile !== null ) ? (
+							<div className={styles.contentCodeProjectFile}>
+								{texts.codeProjectFileDownload[this.state.lang]}
+								<a href={this.state.contentCodeProjectFile} download>{this.state.contentCodeProjectShort}</a>
+							</div>
+						) : null
+					}
+					{
+						(this.state.contentCode !== null ) ? (	
+							<div className={styles.contentCode}>
+								<SyntaxHighlighter language={this.state.contentCodeLang}>
+									{this.state.contentCode}
+								</SyntaxHighlighter>
+							</div>
+						) : null
+					}
+					{
+						(this.state.contentCodeResourseText !== null && this.state.contentCodeResourseLink !== null) ? (
+							<div className={styles.contentCodeDescr}>
+									<a href={this.state.contentCodeResourseLink} className={styles.contentSourceCodeLink} download>
+										{this.state.contentCodeResourseText[this.state.lang]}</a>
+							</div>
+						) : null
+					}
+					{
+						(this.state.contentCodeSourceLink !== null ) ? (
+							<div className={styles.contentCodeDescr}>
+									<a href={this.state.contentCodeSourceLink} target={'_blank'} className={styles.contentSourceCodeLink}>
+										{settings.textSourceCode[this.state.lang]}</a>
+							</div>
+						) : null
+					}
+					{
+						(this.state.contentCodeImg !== null ) ? (
+							<div>
+							<div className={styles.contentCodeOutputTitle}>{texts.codeOutputTitle[this.state.lang]}</div>
+							<div className={styles.contentCodeImg}>
+								<img src={this.state.contentCodeImg}/>
+							</div>
+							</div>
+						) : null
+					}
 				</div>
 			); 
 		} 	
@@ -172,13 +216,13 @@ class App extends React.Component {
 				<div className={styles.content}>
 					{contentTitle}
 					{contentBody}
-				</div>
- 				<div className={styles.footer}>
-					Powered by <a target=_blank href='https://reactjs.org'>React</a>.
-					See the source code and the licence <a href='https://github.com/SpiderProjectDeveloper/API-WebDoc'>here</a>.
+					<div className={styles.footer}>
+						Powered by <a target={'_blank'} href={'https://reactjs.org'}>{'React'}</a>.
+						See the source code and the licence <a href={'https://github.com/SpiderProjectDeveloper/API-WebDoc'}>{'here'}</a>.
+					</div>
 				</div>
 			</div>
-        );
+    );
 	}
 }
 

@@ -1,0 +1,162 @@
+{
+	"mainPageText": { 
+		"en": 
+			"<mark>Spider Project API</mark> is used for interaction (data exchange) between <mark>Spider Project</mark> and other applications such as <mark>Microsoft Excel</mark>/<mark>Apache Open Office Calc</mark> etc, or ad-hoc applications our client companies develop and use to meet their needs (<mark>python</mark> scripts, <mark>node.js</mark> applications etc). Interaction is provided via <mark>http</mark> protocol with <mark>Spider Project</mark> functioning as a server and an application it communicates with being a client. Any application empowered with <mark>http get/post</mark> functionality may communicate with <mark>Spider Project</mark>. In the moment data exchange occurs <mark>Spider Project</mark> must be launched in the <mark>server</mark> mode. With both applications running on the same computer a <mark>localhost:8080</mark> server address is used (the number of the port can be changed via <mark>Spider Project</mark> settings). If a client application is ran on a remote computer the server address is defined by your system administrator.<br/><br/><img style='width:100%; max-width:100%; border-radius:12px;' src='files/table.dash.py.png'/>", 
+		"ru": 
+			"<mark>Спайдер Проджект API</mark> используется для обмена данными между <mark>Спайдер Проджект</mark> и другими приложениями, как стандартными (например, <mark>Microsoft Excel</mark>/<mark>Apache Open Office Calc</mark>, <mark>1C</mark>), так и пользовательскими, которые наши клиенты разрабатывают для своих специфических нужд (<mark>python</mark>-скрипты, <mark>node.js</mark>-приложения и проч.). Обмен данными осуществляется по протоколу <mark>http</mark>. В момент обмена данными <mark>Спайдер Проджект</mark> должен быть запущен в режиме сервера. В случае, когда обмен данными осуществляется между приложениями, запущенными на одном компьютере, в качестве адреса сервера для взаимодействия используется <mark>localhost</mark>, порт <mark>8080</mark> (номер порта можно изменить в настройках <mark>Спайдера Проджект</mark>). Если данные необходимо передавать между разными компьютерами внутри одной сети или компьютерами, взаимодействующими через сеть <mark>Интернет</mark>, адрес сервера устанавливается системным администратором.<br/><br/><img style='width:100%; max-width:100%; border-radius:12px;' src='files/table.dash.py.png'/>" 
+	},
+	"mainPageTitle": { 
+		"en": "Spider Project API", 
+		"ru": "Спайдер Проджект API" 
+	},
+	"apiPageTitle": { 
+		"en": "API Reference", 
+		"ru": "Справочник API" 
+	},
+	"examples": [
+		{ 
+			"title": {
+                "en": "Python: Requesting a Table",
+                "ru": "Python: запрашиваем таблицу"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>GanttAct</mark> table (there is a link to the demo project below) and with the data received (values in the <mark>c_sum_кс</mark> column of every operation) building a pie chart.<br/>The technological stack used: <mark>python</mark> 3.x, <mark>matplotlib</mark>.",
+                "ru": "Запрашиваем таблицу <mark>GanttAct</mark> (ссылку на демо-проект см. ниже) и на основе полученных данных (значения в поле <mark>c_sum_кс</mark> каждой операции) строим круговую диаграмму.<br/>Стек технологий: <mark>python</mark> версии 3.x, <mark>matplotlib</mark>."
+            }, 
+			"lang":"python", "module": "files/table.costs.pie.py", "img": "files/table.costs.pie.py.png",
+			"sprj": "files/1km_road_api.001.sprj" 
+		},
+		{ 
+			"title": {
+                "en": "Python: Logging, then Requesting a Table",
+                "ru": "Python: авторизуемся, затем запрашиваем таблицу"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>GanttAct</mark> table (there is a link to the demo project below) and with the data received (values in the <mark>c_sum_кс</mark> column of every operation) building a pie chart.<br/>The technological stack used: <mark>python</mark> 3.x, <mark>matplotlib</mark>.",
+                "ru": "Запрашиваем таблицу <mark>GanttAct</mark> (ссылку на демо-проект см. ниже) и на основе полученных данных (значения в поле <mark>c_sum_кс</mark> каждой операции) строим круговую диаграмму.<br/>Стек технологий: <mark>python</mark> версии 3.x, <mark>matplotlib</mark>."
+            }, 
+			"lang":"python", "module": "files/table.costs.login.pie.py", "img": "files/table.costs.pie.py.png",
+			"sprj": "files/1km_road_with_users_api.001.sprj" 
+		},
+		{ 
+			"title": {
+                "en": "Python: Requesting a Report", 
+                "ru": "Python: запрашиваем отчет"
+            },
+			"descr": {
+                "en": "Requesting a <mark>Total Cost</mark> report (there is a link to the demo project below) and building a <mark>Total Cost vs Time</mark> plot.<br/>The technological stack used: <mark>python</mark> 3.x, <mark>matplotlib</mark>.",
+                "ru": "Запрашиваем отчет <mark>Total Cost</mark> (ссылку на демо-проект см. ниже) и строим график зависимости <mark>Общей стоимости</mark> от <mark>Времени</mark>.<br/>Стек технологий: <mark>python</mark> версии 3.x, <mark>matplotlib</mark>."
+            }, 
+			"lang":"python", "module": "files/report.totalcost.py", "img": "files/report.totalcost.py.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "Python: A Custom Dashboard", 
+                "ru": "Python: Пользовательский Дешборд"
+            },
+			"descr": {
+                "en": "Requesting a <mark>GanttAct</mark> table (there is a link to the demo project below) and building an interactive dashboard.<br/>The technological stack used: <mark>python</mark> 3.x, <mark>plotly</mark>, <mark>dash</mark>.<br/>See <a href='https://sppythondash.herokuapp.com/' target='_blank'>live demo</a>.",
+                "ru": "Запрашиваем таблицу <mark>GanttAct</mark> (ссылку на демо-проект см. ниже) и на основе полученных данных создаем интерактивный пользовательский дешборд.<br/>Стек технологий: <mark>python</mark> версии 3.x, <mark>plotly</mark>, <mark>dash</mark>.<br/>См. <a href='https://sppythondash.herokuapp.com/' target='_blank'>\"живой\" пример</a>."
+            }, 
+			"lang":"python", "module": "files/table.dash.py", "img": "files/table.dash.py.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "MS Excel: Requesting a Table", 
+                "ru": "MS Excel: запрашиваем таблицу"
+            },
+			"descr": {
+                "en": "Requesting a <mark>GanttAct</mark> table (there is a link to the demo project below) and populating cells of a <mark>Calc</mark> sheet with the values of the <mark>DurSum</mark> column of the table read.<br/>The technological stack used: Microsoft Office Excel + VBA",
+                "ru": "Запрашиваем таблицу <mark>GanttAct</mark> (ссылку на демо-проект см. ниже) и записываем данные из колонки <mark>DurSum</mark> в ячейки электронной таблицы.<br/>Стек технологий: Microsoft Office Excel + VBA."
+            }, 
+			"lang":"basic", "module": "files/table.excel.bas", "img": "files/table.bas.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "MS Excel: Requesting a Report",
+                "ru": "MS Excel: запрашиваем отчет"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>TotalCost</mark> report (there is a link to the demo project below) and populating cells of a <mark>Calc</mark> sheet with the values of the <mark>array</mark> read.<br/>The technological stack used: Microsoft Office Excel + VBA.", 
+                "ru": "Запрашиваем отчет <mark>TotalCost</mark> (ссылку на демо-проект см. ниже) и записываем в ячейки электронной таблицы данные из полученного по запросу массива <mark>array</mark>.<br/>Стек технологий: Microsoft Office Excel + VBA." 
+            },
+			"lang":"basic", "module": "files/report.totalcost.excel.bas", "img": "files/report.totalcost.bas.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "OO Calc: Requesting a Table", 
+                "ru": "OO Calc: запрашиваем таблицу"
+            },
+			"descr": {
+                "en": "Requesting a <mark>GanttAct</mark> table (there is a link to the demo project below) and populating cells of a <mark>Calc</mark> sheet with the values of the <mark>DurSum</mark> column of the table read.<br/>The technological stack used: OpenOffice Calc + VBA",
+                "ru": "Запрашиваем таблицу <mark>GanttAct</mark> (ссылку на демо-проект см. ниже) и записываем данные из колонки <mark>DurSum</mark> в ячейки электронной таблицы.<br/>Стек технологий: OpenOffice Calc + VBA."
+            }, 
+			"lang":"basic", "module": "files/table.bas", "img": "files/table.bas.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{
+			"title": {
+                "en": "OO Calc: Importing a Table into a Sheet",
+                "ru": "OO Calc: импортируем таблицу в лист"
+            }, 
+			"descr": {
+                "en": "Importing the <mark>GanttAct</mark> table into a sheet making the first row a header with column titles.<br/>Technological stack used: <mark>Open Office Calc</mark>, <mark>VBA</mark>.",
+                "ru": "Импортируем таблицу <mark>GanttAct</mark> в лист. Первую строчку листа делаем заголовком с именами столбцов.<br/>Стек технологий: <mark>Open Office Calc</mark>, <mark>VBA</mark>."
+            }, 
+			"lang":"basic", "module": "files/table.export.bas", "img": "files/table.export.bas.png",
+			"sprj": "files/1km_road_api.001.sprj" 
+		},
+		{ 
+			"title": {
+                "en": "OO Calc: Requesting a Report",
+                "ru": "OO Calc: запрашиваем отчет"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>TotalCost</mark> report (there is a link to the demo project below) and populating cells of a <mark>Calc</mark> sheet with the values of the <mark>array</mark> read.<br/>The technological stack used: Open Office Calc + VBA.", 
+                "ru": "Запрашиваем отчет <mark>TotalCost</mark> (ссылку на демо-проект см. ниже) и записываем в ячейки электронной таблицы данные из полученного по запросу массива <mark>array</mark>.<br/>Стек технологий: Open Office Calc + VBA." 
+            },
+			"lang":"basic", "module": "files/report.totalcost.bas", "img": "files/report.totalcost.bas.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "MS PowerBI: Requesting a Report",
+                "ru": "MS PowerBI: запрашиваем отчет"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>Total Cost</mark> report for importing \"Time, Value\" data table into <mark>PowerBI</mark>. The technological stack used: <mark>python</mark> 3.x, <mark>pandas</mark>, <mark>MS&nbsp;PowerBI</mark>.",
+                "ru": "Запрашиваем отчет <mark>Total Cost</mark> и импортируем таблицу \"Time, Value\" в <mark>PowerBI</mark>.<br/>Стек технологий: <mark>python</mark> версии 3.x, <mark>pandas</mark>, <mark>MS&nbsp;PowerBI</mark>."
+            }, 
+			"lang":"python", "module": "files/report.totalcost.powerbi.py", "img": "files/report.totalcost.powerbi.py.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "Google Sheets: Requesting a Table",
+                "ru": "Google Sheets: Запрашиваем таблицу"
+            }, 
+			"descr": {
+                "en": "Requesting a <mark>Gantt Act</mark> from Spider Project into a Google Spreadsheet with a script app.",
+                "ru": "Запрашиваем таблицу <mark>Gantt Act</mark> из Спайдер Проджект в Google Spreadsheet."
+            }, 
+			"lang":"javascript", "module": "files/table.export.gs", "img": "files/table.export.gs.png",
+			"sprj": "files/1km_road_api.001.sprj"  
+		},
+		{ 
+			"title": {
+                "en": "Android: Performance Record",
+                "ru": "Android: Внесение учета"
+            }, 
+			"descr": {
+                "en": "This application allows you to send performance records to Spider Project distantly, using your mobile phone.",
+                "ru": "Приложение позволяет вносить в Spider Project данные по учету дистанционно, с помощью мобильного телефона."
+            }, 
+			"resourseLink": "files/1.apk", "resourseText": { "en": "Installation file .apk", "ru": "Установочный файл .apk" },
+			"sourceCodeLink": "none"
+		}
+	]
+}

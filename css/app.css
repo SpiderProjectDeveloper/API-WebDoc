@@ -73,7 +73,6 @@ mark {
 	font-size:14px; font-weight:bold; font-style:italic; 
 }
 
-
 .content {
 	position:absolute; left:calc(25% + 4px); top:42px; 
 	min-height:calc(100vh - 42px); min-height:calc(100vh - 44px);  
@@ -95,7 +94,6 @@ mark {
 	line-height:180%; text-align:justify;
 	color:#4f4f4f; font-size:16px;
 }
-
 
 .contentCode {
 	margin:4px; padding:4px;
@@ -132,8 +130,18 @@ mark {
 	font-family: courier;
 }
 
+.contentSourceCodeLink {
+	border-bottom:1px dotted gray;
+	text-decoration: none;
+	color: #2f2f7f;
+	font-family: courier;
+}
+
 .footer {
 	width: 100%;
 	margin: 24px 0px 0px 0px;
+	padding:12px;
+	color: #4f4f4f;
+	font-size: 14px;
 	background-color:#efefef;
 }

@@ -1,4 +1,3 @@
-
 var settings = {
 	langs: ['en', 'ru' ],
 	lang: { en: 'EN', ru: 'РУ' },
@@ -6,6 +5,7 @@ var settings = {
 	titleProgrammingLanguages: { en: 'Programming Languages', ru:'Языки программирования' },
 	titleApplications: { en: 'Applications', ru:'Приложения' },
 	titleExamples: { en: 'Examples', ru:'Примеры' },
+	textSourceCode: { en: 'See the source code here', ru:'Исходный код доступен здесь' },
 };
 
 export default settings;
