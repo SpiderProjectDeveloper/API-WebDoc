@@ -4,14 +4,31 @@
   {
     "command": "createProject",
     "title": "Создать проект",
-    "parameters": "activities - список операций и фаз; project - свойства проекта; sessId - сессия",
+    "parameters":"project - свойства проекта; activities - список операций и фаз; materials - список материалов; activitiesMaterials - список назначений материалов на операции с кодом операции, кодом материала, видом расхода и величиной расхода; sessId - сессия",
     "sampleParameters" : {
        "command" : "createProject",
        "project" : { "Code" : "myproject", "Version" : 1, "WexbimPath": "c:/temp" },
-       "activities" : [ { "Level": "1", "Code": "phase1", "Name": "Фаза 1" }, { "Code": "oper1", "Name": "Операция 1" } ]
+       "activities" : [ { "Level": "1", "Code": "phase1", "Name": "Фаза 1" }, { "Code": "oper1", "Name": "Операция 1" } ],
+       "materials" : [ { "Code": "beton", "Name": "Beton" }, { "Code": "kirpich", "Name": "Kirpich" } ],
+       "activitiesMaterials" : [ { "OperCode": "oper1", "MatCode": "Beton", "Fix":7 }, { "OperCode": "oper1", "MatCode": "kirpich", "Fix": 19 } ],
+       "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr"
     },
-    "result": "errcode - 0 - успешно, иначе - код ошибки; error - текст ошибки; docHandle - хэндл проекта",
-    "sampleResult" : { "errcode": 0, "error": "" , "docHandle": "1234"}
+    "result": "errcode - 0 - успешно, иначе - код ошибки;error - текст ошибки; docHandle - хэндл проекта",
+    "sampleResult" : { "errcode": 0, "error": "" , "docHandle": "1234"},
+    "description" : "Открыть проект с кодом myproject, версией 1, путём к Wexbim-файлу c:/temp.\nДобавить фазу с кодом phase1 и названием Фаза 1.\nДобавить операцию с кодом oper1 и названием Операция 1. Добавить материал с кодом beton и наpавнием Beton. Добавить материал с кодом kirpich и наpавнием Kirpich. Задать фиксированный расход beton на oper1 в количестве 7. Задать фиксированный расход kirpich на oper1 в количестве 19. Пользователь с указанной сессией будет добавлен в проект."
+  },
+  { 
+    "command": "updateProject",
+    "title": "Обновить проект",
+    "parameters": "activities - список операций; docHandle - хэндл (идентификатор) проекта; sessId - сессия",
+    "sampleParameters" : {
+       "command" : "updateProject",
+       "activities" : [ { "Code": "code3", "Name": "Name 3" }],
+       "materials" : [ { "Code": "plita", "Name": "Plita" }],
+       "activitiesMaterials" : [ { "OperCode": "oper3", "MatCode": "Plita", "Fix":1 }]
+    },
+    "result": "errcode - 0 - успешно, иначе - код ошибки; error - текст ошибки",
+    "sampleResult" : { "errcode": 0, "error": ""}
   },
   {
     "command": "createDocument",
@@ -22,10 +39,9 @@
        "document" : { "Code" : "mydocument", "Version" : 1},
        "fields": [{"Code": "Code", "Name":"Column Code"}, {"Code": "Name", "Name":"Column Name"}],
        "data": [
-                 ["Code11", "Name11"], 
+                 ["Code11", "Name11"],
                  ["Code12", "Name12"]
-               ],
-       "array" : [ { "Code": "row1", "Name": "Row 1" }, { "Code": "row2", "Name": "Row2 1" } ]
+               ]
     },
     "result": "errcode - 0 - успешно, иначе - код ошибки; error - текст ошибки; docHandle - хэндл документа",
     "sampleResult" : { "errcode": 0, "error": "" , "docHandle": "1234"}
@@ -34,28 +50,124 @@
     "command": "openFile",
     "title": "Открыть файл",
     "parameters": "fileName - имя файла в папке, назначенной пользователю, sessId - ключ сессии",
-    "sampleParameters" : { "command" : "openFile", "fileName": "1234.sprj", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
-    "result": "docHandle - хэндл (идентификатор) проекта или документа, 0 - ошибка, error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleParameters" : { "command" : "openFile", "fileName": "1234.001.sprj", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "result": "docHandle - хэндл (идентификатор) проекта или документа, errcode - 0 - успешно, иначе - код ошибки; error - содержит пустую строку в случае успеха или текст ошибки",
     "sampleResult" : { "error": "", "docHandle":"1234567890" }
   },
   {
-    "command": "createObject",
-    "title": "Создать объект",
-    "parameters": "docHandle - хэндл проекта или документа; table - код таблицы (для проекта); values - значения полей; sessId - сессия",
-    "sampleParameters" : {
-       "command" : "createObject",
-       "docHandle" : "1234",
-       "table" : "Activity",
-       "values" : { "Code" : "oper1", "Name" : "Операция 1" }
-    },
-    "result": "result - 0 - успешно, иначе - код ошибки",
-    "sampleResult" : { "result" : 0, "error": "" }
+    "command": "saveFile",
+    "title": "Сохранить файл",
+    "parameters": "docHandle - хэндл (идентификатор) проекта или документа, sessId - ключ сессии",
+    "sampleParameters" : { "command" : "saveFile", "docHandle": "12345678", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "result": "errcode - 0 - успешно, иначе - код ошибки; error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "", "errcode":0 }
   },
-
-
-
-
-
+  {
+    "command": "closeFile",
+    "title": "Закрыть файл",
+    "parameters": "docHandle - хэндл (идентификатор) проекта или документа, sessId - ключ сессии",
+    "sampleParameters" : { "command" : "closeFile", "docHandle": "12345678", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "result": "errcode - 0 - успешно, иначе - код ошибки; error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "", "errcode":0 }
+  },
+  { "command": "getDocument",
+    "title": "Получить содержимое документа",
+    "parameters": "fileName - имя файла, sessId - ключ сессии",
+    "sampleParameters" : { "command" : "getDocument", "fileName": "1234.001.sdoc", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "result": "docHandle - хэндл (идентификатор) документа, errcode - 0 - успешно, иначе - код ошибки; error - содержит пустую строку в случае успеха или текст ошибки; список полей и таблица значений документа",
+    "sampleResult" : { 
+  "docHandle" : 25179880,
+  "fields" : [
+    {
+      "Code" : "Уровень",
+      "Name" : "Уровень",
+      "Type" : "text",
+      "hidden" : 0,
+      "format" : 0,
+      "widthsym" : 17
+    },
+    {
+      "Code" : "Код",
+      "Name" : "Код",
+      "Type" : "text",
+      "hidden" : 0,
+      "format" : 0,
+      "widthsym" : 17
+    },
+    {
+      "Code" : "Название",
+      "Name" : "Название",
+      "Type" : "text",
+      "hidden" : 0,
+      "format" : 0,
+      "widthsym" : 17
+    },
+    {
+      "Code" : "Начало_периода",
+      "Name" : "Начало периода",
+      "Type" : "text",
+      "hidden" : 0,
+      "format" : 0,
+      "widthsym" : 17
+    },
+    {
+      "Code" : "Окончание_периода",
+      "Name" : "Окончание периода",
+      "Type" : "text",
+      "hidden" : 0,
+      "format" : 0,
+      "widthsym" : 17
+    }
+  ],
+  "array" : [
+    [
+      "1",
+      "Проект2",
+      "Проект 2",
+      "23.03.2022 8:00",
+      "24.03.2022 16:00"
+    ],
+    [
+      "2",
+      "1",
+      "Фаза 1",
+      "23.03.2022 8:00",
+      "24.03.2022 16:00"
+    ],
+    [
+      "",
+      "1",
+      "Операция 1",
+      "23.03.2022 8:00",
+      "24.03.2022 16:00"
+    ],
+    [
+      "",
+      "2",
+      "Операция 2",
+      "23.03.2022 8:00",
+      "24.03.2022 16:00"
+    ],
+    [
+      "",
+      "3",
+      "Операция 3",
+      "23.03.2022 8:00",
+      "24.03.2022 16:00"
+    ]
+  ],
+  "errcode" : 0,
+  "error" : ""
+                     }
+  },
+  {
+    "command": "transferPerformanceToProject",
+    "title": "Внести учётные данные в проект",
+    "parameters": "docHandle - хэндл (идентификатор) проекта или документа, sessId - ключ сессии",
+    "sampleParameters" : { "command" : "transferPerformanceToProject", "docHandle": "12345678", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "result": "errcode - 0 - успешно, иначе - код ошибки; error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "", "errcode":0 }
+  },
   {
     "command" : "login",
     "title": "Вход пользователя",
@@ -73,6 +185,12 @@
     "sampleResult" : { "error": "" }
   },
   {
+    "command": "ver",
+    "title": "Получить номер версии Спайдера",
+    "result": "ver - содержит номер версии. Можно использовать для проверки работоспособности API",
+    "sampleResult" : { "ver": "24.11.2021" }
+  },
+  {
     "command":"getFiles",
     "title": "Получить файлы из папки",
     "parameters": "path - путь к папке, sessId - ключ сессии",
@@ -81,14 +199,6 @@
     "sampleResult" : {
     "array" : ["Project.001.sprj", "Document.002.sdoc"]
     }
-  },
-  {
-    "command": "saveProject",
-    "title": "Сохранить проект",
-    "parameters": "docHandle - хэндл (идентификатор) проекта, sessId - ключ сессии",
-    "sampleParameters" : { "command" : "saveProject", "docHandle": "1234567890", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
-    "result": "error - содержит пустую строку в случае успеха или текст ошибки",
-    "sampleResult" : { "error": "" }
   },
   {
     "command":"getTables",
@@ -161,9 +271,9 @@
   },
   { "command": "getTable",
     "title": "Получить значения таблицы",
-    "parameters": "tableHandle - хэндл (идентификатор) таблицы, fields - код поля, filter - условие фильтра, sessId - ключ сессии",
+    "parameters": "tableHandle - хэндл (идентификатор) таблицы, fields - код поля, filter - условие фильтра, sessId - ключ сессии, from - индекс первой строки (по умолчанию 0), to - индекс последней строки (по умолчанию количество строк минус единица), limit - количество строк (по умолчанию все)",
     "sampleParameters" : { "command" : "getTable", "tableHandle": "1234", "fields": ["code", "type"], "filter":"Level < 3", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
-    "result": "список код поля - значение",
+    "result": "список код поля - значение, total - количество строк",
     "sampleResult" : { "error": "",
                          "fields": [
                             {"Code": "Code", "Name":"Code", "Type":"text"},
@@ -172,20 +282,68 @@
                          "array": [
                             {"Code": "code1", "Name":"name1"},
                             {"Code": "code2", "Name":"name2"}
-                         ]
+                         ],
+                         "total": 2
                      }
   },
   { "command": "setTable",
     "title": "Записать значения в таблицу",
-    "parameters": "tableHandle - хэндл (идентификатор) таблицы, sessId - ключ сессии, fields - список полей таблицы; data - содержание таблицы; array - список значений ячеек;",
-    "sampleParameters" : { 
+    "parameters": "tableHandle - хэндл (идентификатор) таблицы, sessId - ключ сессии, fields - список полей таблицы; data - содержание таблицы; array - список значений ячеек; Секции data и array – альтернативны в том смысле, что использовать их одновременно нет смысла, хотя разрешено. Секция data содержит прямоугольную таблицу, а в array можно указать только конкретные поля в каждом ряду",
+    "sampleParameters" : {
       "command" : "setTable", "tableHandle": "1234", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr",
       "fields": [{"Code": "Code", "Name":"Column Code"}, {"Code": "Name", "Name":"Column Name"}],
       "array" : [ { "Code": "row1", "Name": "Row 1" }, { "Code": "row2", "Name": "Row2 1" } ],
       "data": [
-                ["Code11", "Name11"], 
+                ["Code11", "Name11"],
                 ["Code12", "Name12"]
               ]
+    },
+    "result": "error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "" }
+  },
+  { "command": "setActualPerformance",
+    "title": "Внести учёт в проект",
+    "parameters": "docHandle - хэндл (идентификатор) проекта, sessId - ключ сессии, fields - список полей таблицы; data - содержание таблицы; array - список значений ячеек;",
+    "sampleParameters" : {
+      "command" : "setActualPerformance", "docHandle": "1234", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr",
+      "fields": [{"Code": "OperCode", "Name":"Oper Code"}, {"Code": "Start", "Name":"Start"}, {"Code": "Fin", "Name":"Fin"}, {"Code": "VolDone", "Name":"Vol Done"}, {"Code": "DurDone", "Name":"Dur Done"}, {"Code": "WorkLoadDone", "Name":"WorkLoad Done"}],
+      "array" : [ { "OperCode": "1", "Start": "01.01.2021", "Fin": "02.01.2021", "VolDone": 50, "DurDone":15} ],
+      "data": [
+                ["1", "01.01.2021", "02.01.2021", 50, 15]
+              ]
+    },
+    "result": "error - содержит пустую строку в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "" }
+  },
+  { "command": "getScheduledPerformance",
+    "title": "Получить учётное задание из проекта",
+    "parameters": "docHandle - хэндл (идентификатор) проекта, sessId - ключ сессии, from - начало периода, to - окончание периода, daysFromCurTime - количество дней от текущего времени; array - список значений ячеек;",
+    "sampleParameters" : {
+      "command" : "getScheduledPerformance", "docHandle": "1234", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr", "from":"29.01.21  08:00", "to":"30.01.21  08:00",
+      "fields" : [{"Code" : "OperCode","Name" : "Код операции","Type" : "text"},
+                  {"Code" : "ResCode", "Name" : "Код ресурса", "Type" : "text"},
+                  {"Code" : "ExportTime", "Name" : "Время создания", "Type" : "datetime"},
+                  {"Code" : "Level", "Name" : "Уровень", "Type" : "text"},
+                  {"Code" : "Code", "Name" : "Код", "Type" : "text"},
+                  {"Code" : "Name", "Name" : "Название", "Type" : "text"},
+                  {"Code" : "Start", "Name" : "Начало периода", "Type" : "datetime"},
+                  {"Code" : "Fin", "Name" : "Окончание периода", "Type" : "datetime"},
+                  {"Code" : "Person", "Name" : "Менеджер", "Type" : "text"},
+                  {"Code" : "Notes", "Name" : "Комментарии", "Type" : "text"},
+                  {"Code" : "VolPlan", "Name" : "Объём [Было]", "Type" : "number"},
+                  {"Code" : "VolDone", "Name" : "Объём [Выполнено]","Type" : "number"},
+                  {"Code" : "VolAdj", "Name" : "Поправка объёма", "Type" : "number"},
+                  {"Code" : "VolRest", "Name" : "Объём [Остаток]", "Type" : "number"},
+                  {"Code" : "TeamDur","Name" : "Длительность, Часы [Было]","Type" : "number"},
+                  {"Code" : "DurAdj", "Name" : "Поправка длительности", "Type" : "number"},
+                  {"Code" : "DurDone", "Name" : "Длительность, Часы [Пройдено]", "Type" : "number"},
+                  {"Code" : "DurRest", "Name" : "Длительность, Часы [Остаток]", "Type" : "number"},
+                  {"Code" : "NumFact", "Name" : "Количество [Факт]", "Type" : "number"},
+                  {"Code" : "WorkLoadDone", "Name" : "Трудоёмкость [Выполнено]", "Type" : "number"},
+                  {"Code" : "LoadFact", "Name" : "Загрузка [Факт]", "Type" : "number"} ],
+      "array" : [{"ExportTime" : 1614254909, "Level" : "1", "Code" : "g", "Name" : "g", "Start" : 1611907200, "Fin" : 1611936000},
+                 {"OperCode" : "2","ExportTime" : 1614254909, "Code" : "2", "Name" : "Операция 2", "Start" : 1611907200, "Fin" : 1611936000, "VolPlan" : 100, "VolDone" : 20, "VolRest" : 80, "TeamDur" : 40, "DurDone" : 8, "DurRest" : 32},
+                 {"OperCode" : "1","ExportTime" : 1614254909, "Code" : "1", "Name" : "Операция 1", "Start" : 1611907200,  "Fin" : 1611936000, "VolPlan" : 100, "VolDone" : 20, "VolRest" : 80, "TeamDur" : 40, "DurDone" : 8, "DurRest" : 32}]
     },
     "result": "error - содержит пустую строку в случае успеха или текст ошибки",
     "sampleResult" : { "error": "" }
@@ -214,8 +372,8 @@
   {
     "command": "getObjectHandle",
     "title": "Получить объект",
-    "parameters": "docHandle - хэндл (идентификатор) проекта или документа, table - код таблицы (GanttAct - фазы, ReportSpend - шаблоны отчётов), index - номер объекта в таблице, code - код объекта, structCode - код структуры (для групп), sessId - ключ сессии",
-    "sampleParameters" : { "command" : "getObjectHandle", "docHandle": "1234", "table" : "GanttAct", "index" : "0", "code" : "project", "structCode" : "main_Struct", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
+    "parameters": "docHandle - хэндл (идентификатор) проекта или документа, table - код таблицы (GanttAct - фазы, ReportSpend - шаблоны отчётов), index - номер объекта в таблице, Code - код объекта, StructCode - код структуры (для групп), sessId - ключ сессии",
+    "sampleParameters" : { "command" : "getObjectHandle", "docHandle": "1234", "table" : "GanttAct", "index" : "0", "Code" : "project", "StructCode" : "main_Struct", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
     "result": "objectHandle - хэндл (идентификатор) объекта, 0 - ошибка, error - содержит пустую строку в случае успеха или текст ошибки",
     "sampleResult" : { "error": "", "objectHandle":"1234567890" }
   },
@@ -230,11 +388,11 @@
   {
     "command": "setObject",
     "title": "Поставить значения объекта",
-    "parameters": "objectHandle - хэндл (идентификатор) объекта, sessId - ключ сессии, values - список кодов полей и значений",
+    "parameters": "objectHandle - хэндл (идентификатор) объекта, sessId - ключ сессии, array - список кодов полей и значений",
     "sampleParameters" : {
       "command" : "setObject",
       "objectHandle": "1234",
-      "values" : { "Name" : "good resour", "Notes" : "array" },
+      "array" : { "Name" : "good resour", "Notes" : "array" },
       "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr"
     },
     "result": "0 или 1",
@@ -243,10 +401,10 @@
   {
     "command":"getReport",
     "title": "Получить графики",
-    "parameters": "objectHandle - хэндл (идентификатор) объекта, templateHandle - хэндл (идентификатор) шаблона, sessId - ключ сессии",
+    "parameters": "objectHandle - хэндл (идентификатор) объекта, templateHandle - хэндл (идентификатор) шаблона, sessId - ключ сессии, type - тип отчёта : diagram - диаграмма, document - документ",
     "sampleParameters" : {"command" : "getReport", "objectHandle" : "12345678", "templateHandle" : "87654321", "sessId":"1j2hgdu74,ofgwigewghv2r823wekrwehr" },
-    "result": "error - содержит массив значений в случае успеха или текст ошибки",
-    "sampleResult" : { "error": "", "graphs": [ { "array": [ [1,2],[2,4],[3,1],[4,2] ] } ] }
+    "result": "error - содержит массив значений для диаграммы или хэндл (идентификатор) и имя файла для документа в случае успеха или текст ошибки",
+    "sampleResult" : { "error": "", "graphs": [ { "array": [ [1,2],[2,4],[3,1],[4,2] ] } ], "docHandle":2347890, "fileName":"report.001.sdoc" }
   },
   { "command": "applyFilter",
     "title": "Применить фильтр к таблице",
@@ -271,7 +429,7 @@
   },
   { "command": "executeScript",
     "title": "Выполнить сценарий",
-    "parameters": "docHandle - хэндл (идентификатор) проекта или долкумента, fileName - имя файла сценария, scriptLibName - имя сценария в библиотеке сценариев, script - содержание сценария, scriptHandle - хэндл (идентификатор) сценария, scriptCode - код сценария, sessId - ключ сессии",
+    "parameters": "docHandle - хэндл (идентификатор) проекта или долкумента, scriptFileName - имя файла сценария, scriptLibName - имя сценария в библиотеке сценариев, script - содержание сценария, scriptHandle - хэндл (идентификатор) сценария, scriptCode - код сценария, sessId - ключ сессии",
     "sampleParameters" : { "command" : "executeScript", "docHandle": "1234", "fileName":"script.spsc", "scriptLibName":"script", "script":"Message (Hello);", "scriptHandle":"345678", "scriptCode":"script", "sessId" : "1j2hgdu74,ofgwigewghv2r823wekrwehr" },
     "result": "",
     "sampleResult" : { "error": "" }

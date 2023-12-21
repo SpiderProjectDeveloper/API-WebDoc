@@ -5,7 +5,7 @@ module.exports = {
    entry: './main.js',
    output: {
       path: path.join(__dirname, '/bundle'),
-      filename: 'index_bundle.js'
+      filename: 'bundle.js'
    },
    devServer: {
 	  contentBase: path.join(__dirname, '/bundle'),

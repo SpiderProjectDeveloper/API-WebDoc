@@ -8,11 +8,13 @@ import { getCookie, setCookie } from './helpers'
 import API from './API';
 var htmlReactParser = require('html-react-parser');
 
-class App extends React.Component {
-	constructor(props) {
+class App extends React.Component 
+{
+	constructor(props) 
+	{
 		super(props);
 		this.state = { 
-			lang: 'ru',
+			lang: (window.location.search !== '?ru') ? 'en' : 'ru',
 			mainPageTitle: { en:'', ru:'' },
 			mainPageText: { en:'', ru:'' },
 			apiPageTitle: { en:'', ru:'' },
@@ -37,13 +39,14 @@ class App extends React.Component {
 		this.setCodeContent = this.setCodeContent.bind(this);
 	}
 
-	changeLang( e ) {
+	changeLang( e ) 
+	{
 		for( let i = 0 ; i < settings.langs.length ; i++ ) {
 			if( settings.langs[i] === this.state.lang ) {
 				let lang = ( i < settings.langs.length-1 ) ? settings.langs[i+1] : settings.langs[0];  		
 				this.setState( { lang: lang } );
-				setCookie( 'lang', lang );
-				if( this.currentExample !== null ) {
+				//setCookie( 'lang', lang );
+				if( this.state.currentExample !== null ) {
 						if( 'module' in this.state.currentExample ) { 
 								this.getContent( this.state.currentExample );
 						}
@@ -92,14 +95,16 @@ class App extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		let lang = getCookie('lang');
-        if( lang !== null ) {
-        	this.setState( { lang:lang } );
-        }		
+	componentDidMount() 
+	{
+		//let lang = getCookie('lang');
+    //if( lang !== null ) {
+    //  this.setState( { lang:lang } );
+    //}		
 
 		let xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
+		xhttp.onreadystatechange = function() 
+		{
 	    	if (xhttp.readyState == 4 ) {
 		    	if( xhttp.status == 200 ) {
 					let data=null;
@@ -119,7 +124,10 @@ class App extends React.Component {
             } 
 	    }.bind(this);
 		xhttp.open( 'GET', 'files/contents.json', true );
-    xhttp.send();
+		xhttp.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
+		xhttp.setRequestHeader("Expires", "Tue, 01 Jan 1980 1:00:00 GMT");
+		xhttp.setRequestHeader("Pragma", "no-cache"); 
+    	xhttp.send();
   }
 
 	render() {				
@@ -196,11 +204,19 @@ class App extends React.Component {
 			examples = (<div>No examples loaded</div>);
 		}
 
+		let nextLang=null;
+		for( let i = 0 ; i < settings.langs.length ; i++ ) {
+			if( settings.langs[i] !== this.state.lang ) continue;
+			nextLang = ( i < settings.langs.length-1 ) ? settings.langs[i+1] : settings.langs[0];  		
+			break;
+		}
+		if( !nextLang ) nextLang = 'en';
+
 		return( 
 			<div>
 				<div className={styles.header}>
 					<div className={styles.headerControls}>
-						<span onClick={this.changeLang}>{ settings.lang[ this.state.lang ] }</span>
+						<span onClick={this.changeLang}>{ settings.lang[ nextLang ] }</span>
 					</div>
 					<div className={styles.headerTitle}>{ settings.titleText[this.state.lang] }</div>
 				</div>
@@ -217,8 +233,8 @@ class App extends React.Component {
 					{contentTitle}
 					{contentBody}
 					<div className={styles.footer}>
-						Powered by <a target={'_blank'} href={'https://reactjs.org'}>{'React'}</a>.
-						See the source code and the licence <a href={'https://github.com/SpiderProjectDeveloper/API-WebDoc'}>{'here'}</a>.
+						Powered by <a target={'_blank'} style={{textDecoration:'none', color:'#707070'}} href={'https://reactjs.org'}>{'React'}</a>.
+						See the source code <a target={'_blank'} style={{textDecoration:'none', color:'#707070'}} href={'https://github.com/SpiderProjectDeveloper/API-WebDoc'}>{'here'}</a>.
 					</div>
 				</div>
 			</div>

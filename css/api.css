@@ -61,9 +61,13 @@
 
 
 .APIItemDescription {
+	white-space: pre-wrap;
 	color: #5f5f5f;
-	font-style: italic;
-	padding: 4px 4px 14px 0px;
+	font-style: normal;
+	margin-top: 18px;
+	padding: 14px;
+	line-height: 24px;
+	background-color:#f7f7f7;
 }
 
 .APIItemParametersTitle, .APIItemResultTitle {
@@ -73,18 +77,21 @@
 }
 
 .APIItemParameters {
+	white-space: pre-wrap;
 	color: #5f5f5f;
 	font-style: normal;
 	padding: 4px;
 }
 
 .APIItemResult {
+	white-space: pre-wrap;
 	color: #5f5f5f;
 	font-style: normal;
 	padding: 4px;
 }
 
 .APIItemSampleParameters, .APIItemSampleResult {
+	white-space: pre-wrap;
 	color: #5f5f5f;
     font-style: normal;
     font-family:courier;

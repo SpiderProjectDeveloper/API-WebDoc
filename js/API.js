@@ -18,12 +18,13 @@ class API extends React.Component {
 		this.listItemChosen = this.listItemChosen.bind(this);
 	}
 
-	listItemChosen(e, command, title, description, parameters, sampleParameters, result, sampleResult ) {
+	listItemChosen(e, command, title, description, parameters, sampleParameters, result, sampleResult ) 
+	{
 		this.setState( { 
-                itemChosenInAPIList: { command:command, title:title, description:description, 
-                    parameters: parameters, sampleParameters: JSON.stringify(sampleParameters),
-                    result: result, sampleResult: JSON.stringify(sampleResult) } 
-            } );
+				itemChosenInAPIList: { command:command, title:title, description:description, 
+						parameters: parameters, sampleParameters: JSON.stringify(sampleParameters, null, 2),
+						result: result, sampleResult: JSON.stringify(sampleResult, null, 2) } 
+		} );
 	}
 
 	render() {
@@ -102,6 +103,9 @@ class APIList extends React.Component {
             } 
 	    }.bind(this);
 		xhttp.open( 'GET', 'files/api.json', true );
+		xhttp.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
+		xhttp.setRequestHeader("Expires", "Tue, 01 Jan 1980 1:00:00 GMT");
+		xhttp.setRequestHeader("Pragma", "no-cache"); 
         xhttp.send();
 	}
 

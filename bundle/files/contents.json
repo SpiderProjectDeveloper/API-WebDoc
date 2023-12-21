@@ -155,8 +155,19 @@
                 "en": "This application allows you to send performance records to Spider Project distantly, using your mobile phone.",
                 "ru": "Приложение позволяет вносить в Spider Project данные по учету дистанционно, с помощью мобильного телефона."
             }, 
-			"resourseLink": "files/1.apk", "resourseText": { "en": "Installation file .apk", "ru": "Установочный файл .apk" },
-			"sourceCodeLink": "none"
+			"resourseLink": "files/input-mobile.apk", "resourseText": { "en": "Installation file .apk", "ru": "Установочный файл .apk" },
+			"sourceCodeLink": "https://github.com/SpiderProjectDeveloper/input-mobile"
+		},
+		{ 
+			"title": {
+                "en": "C#: IFC Import",
+                "ru": "C#: Импорт из IFC"
+            }, 
+			"descr": {
+                "en": "Parses an IFC-file and exports it's elements into Spider Project keeping the hierarchy along with some addition information such as volumes, prices etc.",
+                "ru": "Приложение импортирует данные из IFC-файла в Spider Project, сохраняя иерархическую структуру элементов, а также переносит в Spider Project дополнительную информацию, такую как объемы, цены и проч."
+            }, 
+			"sourceCodeLink": "https://github.com/SpiderProjectDeveloper/IFC-Import"
 		}
 	]
 }
